@@ -1,4 +1,7 @@
+package sintaticAnaliser;
+
 // Generated from C:\Users\samsara\Documents\NetBeansProjects\Tseke\src\Tseke.g4 by ANTLR 4.1
+
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -9,6 +12,10 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
+/**
+ *
+ * @author Pedro Peter
+ */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class TsekeLexer extends Lexer {
 	protected static final DFA[] _decisionToDFA;
