@@ -1,30 +1,26 @@
 grammar Tseke;
 
-program: PUBLIC CLASS ID ABRIR_CHAVETA conteudo* FECHAR_CHAVETA;
+program: PUBLIC BRANCO* CLASS BRANCO* ID BRANCO* ABRIR_CHAVETA BRANCO* conteudo* BRANCO* FECHAR_CHAVETA;
 conteudo: declaracao|inicializacao|decisao|impressao|operacoesArt|PRINT;
-declaracao: TIPO ID PONTO_VIRGULA;                                                  
-inicializacao: ID IGUAL NUM PONTO_VIRGULA; 
+declaracao: TIPO BRANCO+ ID BRANCO* PONTO_VIRGULA;                                                  
+inicializacao: ID BRANCO* ATRIBUICAO BRANCO* NUM BRANCO* PONTO_VIRGULA; 
 
-decisao: IF ABRIR_PARENTESES condicao FECHAR_PARENTESES ABRIR_CHAVETA conteudo FECHAR_CHAVETA|
-         IF ABRIR_PARENTESES condicao FECHAR_PARENTESES ABRIR_CHAVETA conteudo FECHAR_CHAVETA
-         ELSE ABRIR_CHAVETA conteudo FECHAR_CHAVETA;
+decisao: IF BRANCO* ABRIR_PARENTESES BRANCO* condicao BRANCO* FECHAR_PARENTESES BRANCO* ABRIR_CHAVETA  BRANCO* conteudo BRANCO* FECHAR_CHAVETA|
+         IF BRANCO* ABRIR_PARENTESES BRANCO* condicao BRANCO* FECHAR_PARENTESES BRANCO* ABRIR_CHAVETA BRANCO* conteudo BRANCO* FECHAR_CHAVETA
+         BRANCO* ELSE BRANCO* ABRIR_CHAVETA BRANCO* conteudo BRANCO* FECHAR_CHAVETA;
 
 impressao:PRINT ABRIR_PARENTESES (NUM|STRING|ID) FECHAR_PARENTESES PONTO_VIRGULA;
 operacoesArt: soma|subtracao|divisao|multiplicacao;
-soma:ID SOMA ID;                                                             
-subtracao:ID MENOS ID;                                                        
-divisao:ID DIVISAO ID;                                                          
-multiplicacao:ID MULTIPLICACAO ID;                                                     
+soma:ID BRANCO* SOMA BRANCO* ID;                                                             
+subtracao:ID BRANCO* MENOS BRANCO* ID;                                                        
+divisao:ID BRANCO* DIVISAO BRANCO* ID;                                                          
+multiplicacao:ID BRANCO* MULTIPLICACAO BRANCO* ID;                                                     
 
-condicao: expressao (op_logico|op_relacional) expressao|expressao|; 
+condicao: expressao BRANCO* (op_logico|op_relacional) BRANCO* expressao|expressao|; 
 expressao: NOT expressao|soma|subtracao|multiplicacao|divisao|NUM|ID;
 op_relacional: MAIOR|MENOR|MAIOR_IGUAL|MENOR_IGUAL|DIFERENTE;
 op_logico: AND|OR;
         
-
-//IDENTIFICADOR
-ID :  [_|a-z|A-Z][a-z|A-Z|0-9|_]*;
-
 //MODIFICADORES DE ACESSO
 PUBLIC: 'publico';
 PRIVATE: 'privado';
@@ -65,10 +61,10 @@ DIVISAO : '/';
 MULTIPLICACAO : '*';
 
 //TIPO DE DADOS
-TIPO : 'inteiro|byte|float';
+TIPO : 'inteiro'|'byte'|'float'|'String';
 NUM: INTEIRO|FLOAT;
 INTEIRO : [0]|[1-9][0-9]*;
-FLOAT :  [-+]?[0-9]+.{1}[0-9]+([eE][-+]?[0-9]+)?;
+FLOAT :  [-+]?[0-9]+'.'{1}[0-9]+([eE][-+]?[0-9]+)?;
 STRING: '"'.'"';
 
 //TOKENS ESTRUTURAIS
@@ -79,3 +75,6 @@ FECHAR_PARENTESES :  ')';
 PONTO_VIRGULA : ';';
 VIRGULA :  ',';
 BRANCO : [\n| |\t|\r];
+
+//IDENTIFICADOR
+ID :  [_|a-z|A-Z][a-z|A-Z|0-9|_]*;

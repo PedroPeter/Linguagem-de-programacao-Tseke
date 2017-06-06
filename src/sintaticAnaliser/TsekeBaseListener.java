@@ -1,4 +1,5 @@
-// Generated from C:\Users\samsara\Documents\NetBeansProjects\Tseke\src\Tseke.g4 by ANTLR 4.1
+// Generated from C:\Users\samsara\Documents\NetBeansProjects\Tseke\src\sintaticAnaliser\Tseke.g4 by ANTLR 4.1
+package sintaticAnaliser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
