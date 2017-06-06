@@ -60,23 +60,44 @@ public class Editor {
       public void actionPerformed(ActionEvent e) {
         String source = t.getText();
         try {
+          
           stream = new ANTLRInputStream(new ByteArrayInputStream(source.getBytes()));
           lexer = new TsekeLexer(stream);
+          lexer.removeErrorListeners();
+          lexer.addErrorListener(DescriptiveErrorListener.INSTANCE);
           tokens = new CommonTokenStream(lexer);
           parser = new TsekeParser(tokens);
+          parser.removeErrorListeners();
+          parser.addErrorListener(DescriptiveErrorListener.INSTANCE);
           System.out.println("\n\n================ Tseke ================\n\n");
 
-          ParseTree tree = parser.programa();
-          int nErros = parser.getNumberOfSyntaxErrors();
-          if (nErros == 0) {
-            System.out.println("Nenhum erro econtrado");
-          } else if (nErros == 1) {
-            System.out.println(String.format("[%s] Erro encontrado", nErros));
-          } else {
-            System.out.println(String.format("[%s] Erros encontrado", nErros));
+          ParseTree tree = parser.program();
+          String descricErros = "";
+          ArrayList<String>listaErros = DescriptiveErrorListener.erros;
+          for(String iter: listaErros ) {
+               descricErros += iter + "\n"; 
           }
-
-          System.out.println("\n\n=========================================\n\n");
+          int nErros = parser.getNumberOfSyntaxErrors();
+          String relatErros;
+          
+          if (nErros == 0) {
+            relatErros = "==== Compilação concluída com sucesso===\n";
+              
+          } else {
+              relatErros = "==== Compilação concluída ===\n";
+          
+          String contadorDeErros;
+          if (nErros == 1) {
+              relatErros = nErros + " erro encontrado\n";
+            
+          } else {
+              relatErros = nErros + " erros encontrados\n";
+          }
+        
+          }
+          
+          relatErros += descricErros + "\n\n=========================================\n\n";
+          t2.setText(relatErros);
 
         } catch (Exception a) {
 

@@ -24,15 +24,19 @@ public class Main {
     private TsekeParser parser;
 
     public Main(String source) throws IOException {
-        stream = new ANTLRInputStream(new ByteArrayInputStream(source.getBytes()));
+      /*  stream = new ANTLRInputStream(new ByteArrayInputStream(source.getBytes()));
         lexer = new TsekeLexer(stream);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(DescriptiveErrorListener.INSTANCE);
         tokens = new CommonTokenStream(lexer);
         parser = new TsekeParser(tokens);
-        parser.programa();
+        parser.removeErrorListeners();
+        parser.addErrorListener(DescriptiveErrorListener.INSTANCE);
+        parser.program();*/
     }
 
     public static void man(String [] args) throws IOException{
-     Main m=new Main(args[0]);
+     //Main m = new Main(args[0]);
     }
 
 }
