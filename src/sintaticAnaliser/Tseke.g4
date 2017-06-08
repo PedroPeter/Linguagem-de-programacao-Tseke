@@ -1,9 +1,11 @@
 grammar Tseke;
 
 program: PUBLIC BRANCO* CLASS BRANCO* ID BRANCO* ABRIR_CHAVETA BRANCO* conteudo* BRANCO* FECHAR_CHAVETA;
-conteudo: declaracao|inicializacao|decisao|impressao|operacoesArt|PRINT;
+conteudo: declaracao|inicializacao|declar_inic|decisao|impressao|operacoesArt|PRINT|BRANCO;
 declaracao: TIPO BRANCO+ ID BRANCO* PONTO_VIRGULA;                                                  
-inicializacao: ID BRANCO* ATRIBUICAO BRANCO* NUM BRANCO* PONTO_VIRGULA; 
+inicializacao: ID BRANCO* ATRIBUICAO BRANCO* (NUM|ID) BRANCO* PONTO_VIRGULA;
+declar_inic: TIPO BRANCO+ ID BRANCO* ATRIBUICAO BRANCO* (NUM|ID) BRANCO* PONTO_VIRGULA; 
+
 
 decisao: IF BRANCO* ABRIR_PARENTESES BRANCO* condicao BRANCO* FECHAR_PARENTESES BRANCO* ABRIR_CHAVETA  BRANCO* conteudo* BRANCO* FECHAR_CHAVETA|
          IF BRANCO* ABRIR_PARENTESES BRANCO* condicao BRANCO* FECHAR_PARENTESES BRANCO* ABRIR_CHAVETA BRANCO* conteudo* BRANCO* FECHAR_CHAVETA
