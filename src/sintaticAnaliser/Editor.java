@@ -9,7 +9,7 @@ package sintaticAnaliser;
  *
  * @author Pedro Peter
  */
-import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -24,7 +24,6 @@ public class Editor {
 
     private javax.swing.JFrame janela;
     private TsekeLexer lexer;
-    private String source;
     private CommonTokenStream tokens;
     private CharStream stream;
     private TsekeParser parser;
@@ -41,7 +40,6 @@ public class Editor {
 
         javax.swing.JPanel painel = new javax.swing.JPanel(new java.awt.BorderLayout());
         javax.swing.JButton b = new javax.swing.JButton("Compilar");
-        b.setBackground(Color.green);
         t.setTabSize(2);
         t.setLineWrap(true);
         t.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 40, 10, 40));
@@ -58,9 +56,12 @@ public class Editor {
         t2.setFont(font);
         javax.swing.JScrollPane scroll2 = new javax.swing.JScrollPane(t2);
         //scroll2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        
 
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                DescriptiveErrorListener.erros.clear();
                 compilar();
             }
         });
@@ -76,6 +77,9 @@ public class Editor {
 
     public void compilar() {
         String source = this.t.getText();
+         Color corErro = Color.decode("#ff7f7f");
+        Color corSucesso = Color.decode("#99ff99");
+       
         try {
 
             stream = new ANTLRInputStream(new ByteArrayInputStream(source.getBytes()));
@@ -86,7 +90,6 @@ public class Editor {
             parser = new TsekeParser(tokens);
             parser.removeErrorListeners();
             parser.addErrorListener(DescriptiveErrorListener.INSTANCE);
-            System.out.println("\n\n================ Tseke ================\n\n");
             ParseTree tree = parser.program();
             String descricErros = "";
             ArrayList<String> listaErros = DescriptiveErrorListener.erros;
@@ -94,27 +97,32 @@ public class Editor {
                 descricErros += iter + "\n";
             }
             int nErros = parser.getNumberOfSyntaxErrors();
-            String relatErros;
+      
+            String relatErros = "\n\n===========================Tseke=========================\n\n";
+                             
 
             if (nErros == 0) {
-                relatErros = "==== Compilação concluída com sucesso===\n";
-                t2.setBackground(Color.green);
+                relatErros += "==============Compilação concluída com sucesso===========\n";
+                
+                
+                t2.setBackground(corSucesso);
 
             } else {
-                relatErros = "==== Compilação concluída ===\n";
-                t2.setBackground(Color.yellow);
-                String contadorDeErros;
+                relatErros += "====================Compilação concluída=================\n";
+                
+                t2.setBackground(corErro);
                 if (nErros == 1) {
-                    relatErros = nErros + " erro encontrado\n";
+                    relatErros += nErros + " Erro encontrado\n";
 
                 } else {
-                    relatErros = nErros + " erros encontrados\n";
+                    relatErros += nErros + " Erros encontrados\n";
                 }
 
             }
 
-            relatErros += String.format(descricErros) + "\n=========================================\n\n";
+            relatErros += String.format(descricErros) + "\n=========================================================\n\n";
             t2.setText(relatErros);
+            
 
         } catch (Exception a) {
 

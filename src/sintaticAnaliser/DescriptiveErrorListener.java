@@ -24,14 +24,8 @@ public class DescriptiveErrorListener extends BaseErrorListener {
                             int line, int charPositionInLine,
                             String msg, RecognitionException e)
     {
-      
-
-        String sourceName = recognizer.getInputStream().getSourceName();
-        if (!sourceName.isEmpty()) {
-            sourceName = String.format("%s:%d:%d: ", sourceName, line, charPositionInLine);
-        }
-        
-        String MsgErro = sourceName+"line "+line+":"+charPositionInLine + " "+msg;
+              
+        String MsgErro = "Linha "+line+":"+charPositionInLine + " "+msg;
        erros.add(MsgErro);
        System.err.println(MsgErro);
     }

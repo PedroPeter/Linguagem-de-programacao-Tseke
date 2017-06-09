@@ -119,6 +119,17 @@ public interface TsekeListener extends ParseTreeListener {
 	void exitImpressao(@NotNull TsekeParser.ImpressaoContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link TsekeParser#declar_inic}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclar_inic(@NotNull TsekeParser.Declar_inicContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TsekeParser#declar_inic}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclar_inic(@NotNull TsekeParser.Declar_inicContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link TsekeParser#decisao}.
 	 * @param ctx the parse tree
 	 */

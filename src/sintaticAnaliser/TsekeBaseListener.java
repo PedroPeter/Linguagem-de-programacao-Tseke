@@ -147,6 +147,19 @@ public class TsekeBaseListener implements TsekeListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterDeclar_inic(@NotNull TsekeParser.Declar_inicContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitDeclar_inic(@NotNull TsekeParser.Declar_inicContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterDecisao(@NotNull TsekeParser.DecisaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
